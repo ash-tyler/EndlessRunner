@@ -1,0 +1,11 @@
+Sprite sheet size: 10 columns x 5 rows
+Single frame size: 50 x 50 pixels
+
+0 - 9 : Idle
+10 - 13 : Walk
+14 - 18 : Run
+19 - 22 : Turn
+23 - 31 : Hit
+32 - 36 : Get up
+37 - 44 : Attack
+45 - 49 : Bark
