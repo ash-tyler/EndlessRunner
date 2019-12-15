@@ -5,7 +5,8 @@ public class CameraMovement : MonoBehaviour
     #region Inspector Fields
     public float cameraMaxY = 0;
     public float cameraMinY = 0;
-    public float maxDistanceDelta = 2f;
+
+    public Vector3 offsetFromPlayer = Vector3.zero;
     #endregion
 
     void Start()
@@ -30,12 +31,13 @@ public class CameraMovement : MonoBehaviour
 
     private void FollowPlayer()
     {
-        Vector3 newPosition = new Vector3(Player.PosX, GetClampedYPos(), transform.position.z);
-        transform.position += Vector3.MoveTowards(transform.position, newPosition, maxDistanceDelta); 
+        Vector3 targetPos = new Vector3(Player.PosX, GetClampedYPos(Player.PosY), 0) + offsetFromPlayer;
+        targetPos.y = GetClampedYPos(targetPos.y);
+        transform.localPosition = targetPos;
     }
 
-    private float GetClampedYPos()
+    private float GetClampedYPos(float yPos)
     {
-        return Mathf.Clamp(Player.PosY, cameraMinY, cameraMaxY);
+        return Mathf.Clamp(yPos, cameraMinY, cameraMaxY);
     }
 }

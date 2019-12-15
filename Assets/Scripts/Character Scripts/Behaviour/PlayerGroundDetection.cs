@@ -53,7 +53,7 @@ public class PlayerGroundDetection : MonoBehaviour
     {
         if (collision.tag == "Finish")
         {
-            Debug.Log("End State Placeholder");
+            EndState.Instance.OnEndState();
         }
         else
         {

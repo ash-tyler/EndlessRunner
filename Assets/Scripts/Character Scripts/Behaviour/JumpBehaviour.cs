@@ -17,13 +17,17 @@ public class JumpBehaviour : ControllableCharacterBehaviour
     {
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
-        //pickUps.DropAll();
 
         PlayerGroundDetection.Instance.OnGroundedChange += HandleIsGroundedChange;
     }
 
     private void Update()
     {
+        if (canAct == false)
+        {
+            return;
+        }
+
         if (behaviourButton.GetButtonDown)
         {
             TriggerJump = true;
@@ -35,6 +39,11 @@ public class JumpBehaviour : ControllableCharacterBehaviour
 
     private void FixedUpdate()
     {
+        if (canAct == false)
+        {
+            return;
+        }
+
         if (TriggerJump && PlayerGroundDetection.Instance.IsGrounded)
         {
             Jump();
@@ -48,6 +57,7 @@ public class JumpBehaviour : ControllableCharacterBehaviour
     private void Jump()
     {
         rb.AddForce(Vector2.up * jumpVelocity, ForceMode2D.Impulse);
+        rb.velocity += Vector2.up * (jumpVelocity / 2);
         TriggerJump = false;
         IsJumping = true;
         anim.SetBool("Jump", true);
